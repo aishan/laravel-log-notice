@@ -2,9 +2,9 @@
 本项目支持自定义laravel框架的日志行为，提供异常日志邮件自动发送功能和推送异常日志到RabbitMQ中。
 
 ## 安装
-*** 目前只在laravel5.1及以上版本测试通过
+\* 目前只在laravel5.1及以上版本测试通过
 ```bash
-composer install aishan/laravel-log-notice
+composer require aishan/laravel-log-notice
 ```
 ## 使用
 1.  在config/app.php的“providers”中加入：
@@ -32,7 +32,7 @@ $app->configureMonologUsing(function($monolog) use ($app) {
 });
 ```
 
-*** 注意：使用这个扩展后，Laravel原本的日志配置将失效，譬如`config/app.php`文件中关于关于日志的配置都将失效，而我们在此刻可以启用新的日志配置文件`config/log-notice.php`
+\* 注意：使用这个扩展后，Laravel原本的日志配置将失效，譬如`config/app.php`文件中关于关于日志的配置都将失效，而我们在此刻可以启用新的日志配置文件`config/log-notice.php`
 
 4.配置
 
@@ -70,7 +70,7 @@ return [
     'log_local_dir'=>'/logs/laravel.log',//基于storage目录
 ];
 ```
-*** 其中，默认开启的为本地日志文件，邮件通知和推送消息至RabbitMQ的动作均需手动开启。
+\*  其中，默认开启的为本地日志文件，邮件通知和推送消息至RabbitMQ的动作均需手动开启。
 1. 为什么消息会推送至RabbitMQ？
 
 因为，团队生产环境用的Logstash是通过RMQ通信转发的，所以实际应用场景是将日志消息最终转入日志服务器；
@@ -93,7 +93,10 @@ return [
 if($level >= 400){//ERROR 以上的日志信息发送至邮件
     $logManager->sendEmail();
 }
+if ($level >= 200) {
+    $logManager->logToRMQ();
+}
 ```
-所以，debug和info的日志都不会以邮件形式发送。
+所以，debug和info的日志都不会以邮件形式发送,而往RabbitMQ中发送的日志只排除了debug类型的信息。
 
 
