@@ -1,0 +1,29 @@
+{
+  "name": "aishan/laravel-log-notice",
+  "description": "log notice for laravel",
+  "keywords": [
+    "laravel log notice",
+    "lumen log notice",
+    "monolog notice",
+    "laravel log on error for mail"
+  ],
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "aishan",
+      "email": "aishan520315@vip.126.com",
+      "homepage": "http://www.aishan100.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.6",
+    "php-amqplib/php-amqplib": "^2.6"
+  },
+  "autoload": {
+    "psr-4": {
+      "Aishan\\LaravelLogNotice\\": "src/"
+    }
+  },
+  "minimum-stability": "dev"
+}
